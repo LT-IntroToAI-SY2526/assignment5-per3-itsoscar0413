@@ -133,10 +133,19 @@ class Board:
             True if we have failed to fill out the puzzle, False otherwise
         """
         for row in self.rows:
-            for cell in row:
-                if isinstance(cell, list) and len(cell) == 0:
+            for col in row:
+                # print(col)
+                if col == []:
                     return True
+                
         return False
+
+        # INITIAL CODE, mr bergs was simpler
+        # for row in self.rows:
+        #     for cell in row:
+        #         if isinstance(cell, list) and len(cell) == 0:
+        #             return True
+        # return False
 
     def goal_test(self) -> bool:
         """Check if we've completed the puzzle (if we've placed all the numbers).
@@ -145,7 +154,7 @@ class Board:
         Returns:
             True if we've placed all numbers, False otherwise
         """
-        return self.num_nums_placed == 81
+        return self.num_nums_placed == self.size * self.size
 
     def update(self, row: int, column: int, assignment: int) -> None:
         """Assigns the given value to the cell given by passed in row and column
@@ -159,6 +168,10 @@ class Board:
             column - index of the column to assign
             assignment - value to place at given row, column coordinate
         """
+
+        # for col in range(self.size):
+            # cell = self.rows[row][col]
+            # idk i give up here
         pass
 
 
@@ -302,13 +315,13 @@ if __name__ == "__main__":
     #we removed 5 items from positions (4,8) so that should now be the most
     #  constrained.
     assert b.find_most_constrained_cell() == (4,8), "find most constrained cell test 1"
-    # assert b.failure_test() == False, "failure test test 1"
-    # assert b.goal_test() == False, "goal test test 1"
+    assert b.failure_test() == False, "failure test test 1"
+    assert b.goal_test() == False, "goal test test 1"
 
-    # b.rows[4][3] = []
-    # assert b.find_most_constrained_cell() == (4,3), "find most constrained cell test 2"
-    # assert b.failure_test() == True, "failure test test 2"
-    # print("All part 1 tests passed!")
+    b.rows[4][3] = []
+    assert b.find_most_constrained_cell() == (4,3), "find most constrained cell test 2"
+    assert b.failure_test() == True, "failure test test 2"
+    print("All part 1 tests passed!")
 
     # ##Now, let's write some quick tests to check update!
     # #Create a sudoku board.
