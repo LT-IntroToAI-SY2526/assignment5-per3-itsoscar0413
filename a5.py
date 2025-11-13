@@ -211,7 +211,7 @@ def DFS(state: Board) -> Board:
                 new_board: Board = copy.deepcopy(current_board)
                 new_board.update(row, col, val)
                 the_stack.push(new_board)
-
+    return None
 
 def BFS(state: Board) -> Board:
     """Performs a breadth first search. Takes a Board and attempts to assign values to
@@ -225,7 +225,22 @@ def BFS(state: Board) -> Board:
     Returns:
         either None in the case of invalid input or a solved board
     """
-    pass
+    the_queue = Queue()
+    the_queue.push(state)
+
+    while not the_queue.is_empty():
+        current_board: Board = the_queue.pop()
+
+        if current_board.goal_test():
+            return current_board
+        
+        if not current_board.failure_test():
+            row, col = current_board.find_most_constrained_cell()
+            possible_numbers = current_board.rows[row][col]
+            for num in possible_numbers:
+                new_board: Board = copy.deepcopy(current_board)
+                new_board.update(row, col, num)
+                the_queue.push(new_board)
 
 
 if __name__ == "__main__":
@@ -384,4 +399,4 @@ if __name__ == "__main__":
     print("<<<<<<<<<<<<<< Testing BFS on Second Game >>>>>>>>>>>>>>")
 
     test_dfs_or_bfs(False, second_moves)
-    pass
+   
