@@ -214,9 +214,9 @@ def DFS(state: Board) -> Board:
         
         if not current_board.failure_test():
             row, col = current_board.find_most_constrained_cell()
-            print(row, col)
+            # print(row, col)
             possible_values = current_board.rows[row][col]
-            print(possible_values)
+            # print(possible_values)
             for val in possible_values:
                 new_board: Board = copy.deepcopy(current_board)
                 new_board.update(row, col, val)
@@ -342,6 +342,18 @@ if __name__ == "__main__":
         (8, 5, 7),
         (8, 7, 5),
     ]
+
+    my_moves = [
+    # Add your moves here in format: (row, col, value)
+	(0, 0, 5), (0, 1, 3), (0, 4, 7),
+	(1, 0, 6), (1, 3, 1), (1, 4, 9), (1, 5, 5),
+	(2, 1, 9), (2, 2, 8), (2, 7, 6),
+	(3, 0, 8), (3, 4, 6), (3, 8, 3),
+	(4, 0, 4), (4, 3, 8), (4, 5, 3), (4, 8, 1),
+	(5, 0, 7), (5, 4, 2), (5, 8, 6)
+    # my function (optional thingy)
+    ]
+
     #Create a sudoku board.
     b = Board()
     #Place the 28 assignments in first_moves on the board.
@@ -416,4 +428,12 @@ if __name__ == "__main__":
     print("<<<<<<<<<<<<<< Testing BFS on Second Game >>>>>>>>>>>>>>")
 
     test_dfs_or_bfs(False, second_moves)
+
+    print("<<<<<<<<<<<<<< Testing DFS on My Game >>>>>>>>>>>>>>")
+
+    test_dfs_or_bfs(True, my_moves)
+
+    print("<<<<<<<<<<<<<< Testing BFS on My Game >>>>>>>>>>>>>>")
+
+    test_dfs_or_bfs(False, my_moves)
    
