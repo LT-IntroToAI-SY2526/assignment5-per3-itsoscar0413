@@ -1,3 +1,4 @@
+import time #added function from assignment
 import copy  # to make a deepcopy of the board
 from typing import List, Any, Tuple
 
@@ -196,12 +197,21 @@ def DFS(state: Board) -> Board:
     """
     the_stack = Stack()
     the_stack.push(state)
+    iterations = 0  # ADD THIS LINE
+    start_time = time.time()  # ADD THIS LINE
 
     while not the_stack.is_empty():
+        iterations += 1  # ADD THIS LINE
         current_board: Board = the_stack.pop()
         # print(current_board)
+
+
         if current_board.goal_test():
+            end_time = time.time()  # ADD THIS LINE
+            elapsed_time = end_time - start_time  # ADD THIS LINE
+            print(f"DFS took {iterations} iterations in {elapsed_time:.4f} seconds")  # ADD THIS LINE
             return current_board
+        
         if not current_board.failure_test():
             row, col = current_board.find_most_constrained_cell()
             print(row, col)
@@ -211,6 +221,7 @@ def DFS(state: Board) -> Board:
                 new_board: Board = copy.deepcopy(current_board)
                 new_board.update(row, col, val)
                 the_stack.push(new_board)
+
     return None
 
 def BFS(state: Board) -> Board:
@@ -227,11 +238,17 @@ def BFS(state: Board) -> Board:
     """
     the_queue = Queue()
     the_queue.push(state)
+    iterations = 0  # ADD THIS LINE
+    start_time = time.time()  # ADD THIS LINE
 
     while not the_queue.is_empty():
+        iterations += 1  # ADD THIS LINE
         current_board: Board = the_queue.pop()
 
         if current_board.goal_test():
+            end_time = time.time()  # ADD THIS LINE
+            elapsed_time = end_time - start_time  # ADD THIS LINE
+            print(f"BFS took {iterations} iterations in {elapsed_time:.4f} seconds")  # ADD THIS LINE
             return current_board
         
         if not current_board.failure_test():
